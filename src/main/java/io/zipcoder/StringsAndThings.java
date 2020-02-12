@@ -15,7 +15,15 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+        String wordArr[] = input.split(" ");
+        Integer counter = 0;
+        for(int i = 0; i < wordArr.length; i++){
+            if( wordArr[i].charAt(wordArr[i].length()-1) == 'y' || wordArr[i].charAt(wordArr[i].length()-1) == 'z' ||
+                    wordArr[i].charAt(wordArr[i].length()-1) == 'Y' || wordArr[i].charAt(wordArr[i].length()-1) == 'Z'  ){
+                counter++;
+            }
+        }
+        return counter;
     }
 
     /**
@@ -27,8 +35,15 @@ public class StringsAndThings {
      *           removeString("Hello there", "e") //  Should return "Hllo thr"
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
+
     public String removeString(String base, String remove){
-        return null;
+
+        //also handle uppercase/lowercase
+        return base.replaceAll("(?i:"+remove+")", "");
+
+        //this can't handle case sensitive
+        //return base.replace(remove, "");
+
     }
 
     /**
@@ -40,7 +55,7 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        return (input.split("is", -1).length - 1) == (input.split("not", -1).length - 1);
     }
 
     /**
@@ -51,7 +66,30 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        char[] charVersion = input.toCharArray();
+        boolean oops = false;
+        int singleG = 0;
+        int i = 0;
+
+        while(!oops && i<charVersion.length){
+            if(charVersion[i] == 'g'){
+                if(i==charVersion.length-1){
+                    singleG++;
+                }else if(i < charVersion.length-1){
+                    if(charVersion[i+1] != 'g'){
+                        singleG++;
+                        oops = true;
+                    }else{
+                        //one pair found!
+                        i++;
+                    }
+                }
+            }
+            i++;
+        }
+
+        return (singleG<=0);
+        //return !input.matches("[^g]*g[^g]*");
     }
 
 
@@ -63,6 +101,17 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+        char[] charVersion = input.toCharArray();
+        int res = 0;
+        int i = 0;
+        if(charVersion.length>=3){
+            while(i<charVersion.length-2){
+                if( charVersion[i] == charVersion[i+1] && charVersion[i+1] == charVersion[i+2]) {
+                    res++;
+                }
+                i++;
+            }
+        }
+        return res;
     }
 }
